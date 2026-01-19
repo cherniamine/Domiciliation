@@ -1,0 +1,11 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8081
+  application:
+    name: gateway-service
+jwt:
+  auth:
+    converter:
+      resource-id: microservice-rest-api
+      principle-attribute: preferred_username
+

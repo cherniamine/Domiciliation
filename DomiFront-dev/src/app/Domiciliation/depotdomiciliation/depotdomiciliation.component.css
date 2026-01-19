@@ -1,0 +1,1523 @@
+
+.wizard-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.input-group {
+  display: flex;
+  gap: 10px; 
+}
+
+.input-group .form-control {
+  flex: 1;
+}
+/* Search Bar Styles */
+.search-bar {
+  margin-bottom: 15px; /* Space below the search bar */
+}
+
+.search-bar input {
+  width: 100%; /* Full width */
+  padding: 8px; /* Padding for input */
+  border: 1px solid #ccc; /* Border style */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+}
+
+
+/* Table Styles */
+.activity-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove space between cells */
+  margin-top: 15px; /* Space above the table */
+}
+
+.activity-table th,
+.activity-table td {
+  border: 1px solid #ddd; /* Light gray border */
+  padding: 8px; /* Padding for cells */
+  text-align: left; /* Align text to the left */
+}
+
+.activity-table th {
+  background-color: #f2f2f2; /* Light gray background for header */
+  font-weight: bold; /* Bold text for header */
+}
+
+.activity-table tbody tr {
+  cursor: pointer; /* Pointer cursor for rows */
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.activity-table tbody tr:hover {
+  background-color: #f0f0f0; /* Highlight row on hover */
+}
+
+
+/* Modal Styles */
+.modal {
+  display: block; /* Show modal */
+  position: fixed; /* Fixed position for full screen */
+  z-index: 1000; /* Higher z-index for modal */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  backdrop-filter: blur(5px); /* Slight blur effect for the background */
+}
+
+.modal-content {
+  background-color: #fff; /* White background for content */
+  border-radius: 8px; /* Rounded corners */
+  margin: 10% auto; /* Center modal vertically */
+  padding: 20px;
+  border: 1px solid #888; /* Light border */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  width: 90%; /* Responsive width */
+  max-width: 600px; /* Max width for larger screens */
+  
+}
+
+/* Close Button Styles */
+.close {
+  color: #888; /* Default close button color */
+  float: right; /* Align to the right */
+  font-size: 28px; /* Font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor */
+  transition: color 0.3s ease; /* Transition effect for hover */
+}
+
+.close:hover,
+.close:focus {
+  color: #e63946; /* Change color on hover */
+  text-decoration: none; /* Remove underline */
+}
+
+/* List of Activities in Modal */
+/* Liste sans puces dans la modal-content */
+.modal-content ul {
+  list-style: none; /* Supprime les puces */
+  padding: 0; /* Supprime le padding par défaut */
+  margin: 0; /* Supprime la marge par défaut */
+}
+
+/* Styles pour les éléments de la liste */
+.modal-content ul li {
+  padding: 10px; /* Espacement interne pour chaque élément */
+  cursor: pointer; /* Curseur en pointeur pour indiquer l'interactivité */
+  transition: background-color 0.3s ease; /* Effet de transition doux */
+  text-align: left; /* Alignement du texte à gauche */
+  color: #343a40; /* Gris foncé pour le texte */
+  font-size: 16px; /* Taille de police lisible */
+  line-height: 1.6; /* Espacement entre les lignes */
+}
+
+/* Style au survol des éléments de la liste */
+.modal-content ul li:hover {
+  background-color: #f8f9fa; /* Gris clair pour le survol (compatible Bootstrap) */
+}
+
+/* Centrage du titre de la modal */
+.modal-title-centered {
+  text-align: center; /* Centrage horizontal */
+  width: 100%; /* Utilise toute la largeur */
+  color: #000000; /* Texte en noir */
+  font-weight: 600; /* Police en gras */
+  margin: 0; /* Supprime la marge par défaut */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%; /* Slightly wider on smaller screens */
+    margin: 5% auto; /* Reduce margin for smaller screens */
+  }
+}
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  p {
+    margin: 0;
+    padding: 8px;
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+  }
+
+  strong {
+    color: #333;
+  }
+}
+
+.modal-header {
+  background-color: #6c757d; /* Gris professionnel Bootstrap */
+  color: #ffffff; /* Texte en blanc */
+  border-bottom: 1px solid #dee2e6; /* Légère bordure */
+}
+
+.modal-footer {
+  background-color: #f9f9f9;
+}
+.modal-body {
+  display: flex; /* Active Flexbox */
+  flex-direction: column; /* Les éléments sont empilés verticalement */
+  align-items: center; /* Centre horizontalement */
+  justify-content: center; /* Centre verticalement */
+  text-align: start; /* Alignement du texte à gauche */
+  width: 75%; /* Largeur limitée à 75% */
+  margin: auto; /* Centre horizontalement la boîte si besoin */
+  padding: 20px; /* Espacement interne */
+  height: 100%; /* Utilise toute la hauteur disponible */
+}
+
+/* Style des paragraphes */
+.modal-body p {
+  margin: 8px 0; /* Espacement vertical entre les paragraphes */
+  font-size: 16px; /* Taille de texte lisible */
+  line-height: 1.5; /* Espacement entre les lignes */
+  color: #343a40; /* Couleur du texte */
+}
+
+
+.radio-label {
+  margin-right: 20px; /* Adjust the space as needed */
+}
+.radio-label input[type="radio"] {
+  margin-right: 8px; /* Adjust this value for more or less space */
+}
+
+.wizard-content-left {
+  background-blend-mode: darken;
+  background-color: rgba(0, 0, 0, 0);
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  padding: 30px;
+}
+.wizard-content-left h1 {
+  color: #ffffff;
+  font-size: 38px;
+  font-weight: 600;
+  padding: 12px 20px;
+  text-align: center;
+}
+
+.form-wizard {
+  padding: 20px;
+}
+.radio-group {
+  display: flex; /* Use flexbox for horizontal alignment */
+  align-items: center; /* Center vertically within the container */
+  justify-content: center; /* Center horizontally within the parent */
+  gap: 20px; /* Add space between the buttons */
+}
+.wizard-form-radio {
+  display: flex; /* Align the radio button and label inline */
+  align-items: center; /* Center label and button vertically */
+  gap: 5px; /* Add spacing between the radio button and label */
+}
+
+.form-wizard .wizard-form-radio input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #007bff; /* Primary color border */
+  border-radius: 50%; /* Makes it circular */
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  outline: none;
+}
+.form-wizard .wizard-form-radio input[type="radio"]:focus {
+  outline: 0;
+}
+.form-wizard .wizard-form-radio input[type="radio"]:checked {
+  background-color: #0066CC;
+}
+.form-wizard .wizard-form-radio input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  width: 10px; /* Inner dot size */
+  height: 10px;
+  background-color: #0056b3; /* Inner dot color */
+  border-radius: 50%; /* Makes it circular */
+  top: 50%; /* Centers vertically */
+  left: 50%; /* Centers horizontally */
+  transform: translate(-50%, -50%); /* Adjusts for the inner dot's size */
+}
+
+
+.form-wizard .wizard-form-radio input[type="radio"] ~ label {
+  padding-left: 10px;
+  cursor: pointer;
+}
+.form-wizard-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.form-wizard-header p {
+  font-size: 16px; /* Adjust the size to make it smaller */
+  font-weight: 500; /* Medium weight for better readability */
+  color: #555; /* Softer color for a professional look */
+  margin-bottom: 15px; /* Add spacing below */
+  line-height: 1.5; /* Improve readability */
+}
+
+.form-wizard .form-wizard-next-btn, .form-wizard .form-wizard-previous-btn, .form-wizard .form-wizard-submit {
+  background-color: #0066CC;
+  color: #ffffff;
+  display: inline-block;
+  min-width: 100px;
+  min-width: 120px;
+  padding: 10px;
+  text-align: center;
+}
+.form-wizard .form-wizard-next-btn:hover, .form-wizard .form-wizard-next-btn:focus, .form-wizard .form-wizard-previous-btn:hover, .form-wizard .form-wizard-previous-btn:focus, .form-wizard .form-wizard-submit:hover, .form-wizard .form-wizard-submit:focus {
+  color: #ffffff;
+  opacity: 0.6;
+  text-decoration: none;
+}
+.form-wizard .wizard-fieldset {
+  display: none;
+}
+.form-wizard .wizard-fieldset.show {
+  display: block;
+}
+.form-wizard .wizard-form-error {
+  display: none;
+  background-color: #d70b0b;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .wizard-section {
+    padding: 10px;
+  }
+
+  .form-wizard-steps li {
+    font-size: 14px;
+  }
+}
+
+.form-wizard .form-wizard-previous-btn {
+  background-color: #0066CC;
+}
+.form-wizard .form-control {
+  font-weight: 400;
+  font-family: 'Arial', sans-serif;
+  height: 45px;
+  padding: 12px 20px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  text-align: center; /* Horizontally center text */
+  line-height: 1.5; /* Adjust line height for better vertical centering */
+}
+
+.form-wizard .form-control:focus {
+  border-color: #007bff; /* Blue border on focus for visual feedback */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Light blue shadow on focus */
+  outline: none; /* Removes default outline for a cleaner look */
+}
+.form-wizard .form-group {
+  position: relative;
+  margin: 25px 0;
+}
+
+.form-text {
+  font-size: 12px;
+  color: #6c757d;  /* Muted text color */
+  margin-top: 4px;
+}
+
+.form-text.text-muted {
+  color: #6c757d;
+}
+.form-wizard .wizard-form-text-label {
+  position: absolute;
+  left: 10px;
+  top: 16px;
+  transition: 0.2s linear all;
+}
+.form-wizard .focus-input .wizard-form-text-label {
+  color: #0066CC;
+  top: -18px;
+  transition: 0.2s linear all;
+  font-size: 12px;
+}
+.form-wizard-steps {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.form-wizard .form-wizard-steps li {
+  width: 16.5%;
+  float: left;
+  position: relative;
+}
+.form-wizard .form-wizard-steps li::after {
+  background-color: #f3f3f3;
+  content: "";
+  height: 5px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  border-bottom: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
+}
+.form-wizard .form-wizard-steps li span {
+  background-color: #dddddd;
+  border-radius: 50%;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  text-align: center;
+  width: 40px;
+  z-index: 1;
+}
+.form-wizard .form-wizard-steps li:last-child::after {
+  width: 50%;
+}
+.form-wizard .form-wizard-steps li.active span, .form-wizard .form-wizard-steps li.activated span {
+  background-color: #2980b9;
+  color: #ffffff;
+}
+.form-wizard .form-wizard-steps li.active::after, .form-wizard .form-wizard-steps li.activated::after {
+  background-color: #2980b9;
+  left: 50%;
+  width: 50%;
+  border-color: #2980b9;
+}
+.form-wizard .form-wizard-steps li.activated::after {
+  width: 100%;
+  border-color: #2980b9;
+}
+.form-wizard .form-wizard-steps li:last-child::after {
+  left: 0;
+}
+.form-wizard .wizard-password-eye {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+@keyframes click-radio-wave {
+  0% {
+    width: 25px;
+    height: 25px;
+    opacity: 0.35;
+    position: relative;
+  }
+  100% {
+    width: 60px;
+    height: 60px;
+    margin-left: -15px;
+    margin-top: -15px;
+    opacity: 0.0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .wizard-content-left {
+    height: auto;
+  }
+}
+
+.custom{
+  background-color: #ffffff;
+  height: 160%;
+
+  .logo {
+
+    position: relative;
+    top: 20px;
+    left: 20px;
+    width: 150px; /* Ajustez la largeur selon vos besoins */
+  }
+}
+.custom-dialog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Assurez-vous que ces classes sont définies dans un fichier CSS global ou dans le style du composant */
+.custom-dialog-container {
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1050 !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+}
+
+.custom-backdrop {
+  background: rgba(0, 0, 0, 0.5) !important;
+  z-index: 1049 !important;
+}
+.clickable-text {
+  color: rgba(0, 0, 0, 0.329); /* Couleur du texte cliquable, vous pouvez ajuster selon vos préférences */
+  cursor: pointer; /* Curseur de souris indiquant que le texte est cliquable */
+  text-decoration: underline; /* Soulignement pour indiquer le lien */
+}
+
+.nom-prenom-container {
+  margin-top: -20px; /* Ajoute un espacement sous le conteneur */
+}
+.nom-prenom {
+  color: #0066CC;
+  font-weight: bold;
+}
+/* Assure que les champs de formulaire s'alignent correctement côte à côte */
+.form-groupe.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px; /* Ajoute un espace entre les champs */
+}
+
+.form-groupe .col-md-6 {
+  flex: 1; /* Chaque colonne prend 50% de l'espace disponible */
+}
+
+/* Style pour les champs de texte et de nombres afin de mieux s'intégrer dans la mise en page */
+.form-control {
+  width: 100%; /* Assure que les champs occupent toute la largeur disponible de leur conteneur */
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Si vous avez des champs en lecture seule, vous pouvez ajouter des styles spécifiques */
+.form-control[readonly] {
+  background-color: #f5f5f5; /* Couleur de fond gris pour les champs en lecture seule */
+  cursor: not-allowed;
+}
+
+/* Gérer les erreurs de validation avec un fond rouge ou une bordure si nécessaire */
+.wizard-form-error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+
+/* Center the input fields and buttons */
+.form-groupe {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-groupe .d-flex {
+  gap: 0.5rem; /* Adds space between the elements within the flex container */
+}
+
+.form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+.form-group.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.col-md-6 {
+  flex: 0 0 48%; 
+}
+.form-control {
+  font-weight: 400;
+  font-family: 'Arial', sans-serif;
+  height: 45px;
+  padding: 12px 20px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.form-control.form-control-sm {
+  width: 100px;
+  margin-right: 10px;
+}
+.btn-custom {
+  padding: 2px 8px; /* Adjust padding for a smaller button */
+  font-size: 8px;  /* Slightly bolder text for emphasis */
+  border-radius: 8px; /* More rounded corners for a modern look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth interaction effects */
+  width: 40px; /* Button width */
+
+
+}
+.btn-custom i {
+  font-size: 14px; /* Adjust icon size */
+}
+
+.btn-custom:hover {
+  transform: translateY(-2px); /* Slight upward movement on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.btn-custom:active {
+  transform: translateY(0); /* Reset movement on click */
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2); /* Inset shadow for pressed effect */
+}
+
+.btn {
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #2980b9;
+  margin-right: 10px; 
+}
+
+.btn-primary:hover {
+  background-color: #3498db;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+
+/* Secondary Button Customization */
+.btn-secondary {
+  background-color: #6c757d; /* Default gray */
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268; /* Darker gray on hover */
+}
+
+.btn-secondary:focus, .btn-secondary:active {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5); /* Focus shadow */
+}
+
+/* Spacing between buttons in a group */
+.btn-group {
+  display: flex;
+  gap: 100px; /* Add spacing between buttons */
+}
+
+.form-text {
+  font-weight: 500; /* Makes the activity label text bold */
+  font-size: 0.9rem; /* Adjusts font size for better readability */
+}
+
+/* Additional styling for small text */
+.form-text.text-muted {
+  color: #6c757d; /* Bootstrap muted text color */
+  font-size: 0.8rem; /* Slightly smaller font size for instructions */
+}
+.is-invalid {
+  border: 1px solid red;
+}
+
+/* Styling for the professional 'Détail' button */
+.btn-detail {
+  background-color: #007bff; /* Primary blue color */
+  color: #fff; /* White text */
+  border: 1px solid #007bff; /* Blue border */
+  padding: 8px 16px; /* Adjust padding for a balanced look */
+  font-size: 14px; /* Slightly smaller font size */
+  border-radius: 30px; /* Rounded corners */
+  font-weight: 500; /* Slightly bold font */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+/* Hover effect for the button */
+.btn-detail:hover {
+  background-color: #0056b3; /* Darker blue for hover */
+  border-color: #0056b3; /* Match border to background */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Focus effect for accessibility */
+.btn-detail:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5); /* Blue glow effect */
+}
+
+/* Active button state (clicked state) */
+.btn-detail:active {
+  background-color: #004085; /* Even darker blue */
+  border-color: #004085;
+  transform: translateY(0); /* Remove lift effect */
+}
+
+
+.disabled-section {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.section-container {
+  border: 1px solid #ddd;
+  padding: 10px 100px 20px;
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 150%; /* Set a percentage width */
+  max-width: 800px; /* Optional: Set a maximum width */
+  margin-left:-80px;
+}
+
+.section-title {
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+.table-details {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.table-details td {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+}
+
+.toggle-section {
+  cursor: pointer;
+  color: #1682ca;
+}
+
+.toggle-section:hover {
+  text-decoration: underline;
+}
+
+.clickable-text {
+  cursor: pointer;
+  color: #1682ca;
+  text-decoration: underline;
+}
+
+.accord-details {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+
+  .card-title {
+    font-size: 1.25rem;
+    color: #007bff;
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    p {
+      margin: 0;
+      padding: 5px;
+      background-color: #ffffff;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+
+    strong {
+      color: #333;
+    }
+  }
+}
+
+.butn {
+  background-color: transparent; /* Arrière-plan invisible */
+  border: none; /* Supprime la bordure */
+  padding: 8px; /* Espacement autour de l'image */
+  border-radius: 50%; /* Forme circulaire */
+  display: inline-flex; /* Aligne le contenu en ligne de manière flexible */
+  align-items: center; /* Centre verticalement l'image */
+  justify-content: center; /* Centre horizontalement l'image */
+  cursor: pointer; /* Indique que le bouton est cliquable */
+  transition: all 0.3s ease; /* Animation douce pour les changements */
+}
+
+.butn img {
+  width: 35px; /* Taille de l'image */
+  height: 35px;
+  display: block; /* Supprime les espaces indésirables */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Ajoute des animations */
+}
+
+.butn:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Ajoute un fond léger au survol */
+  transform: scale(1.05); /* Agrandit légèrement le bouton */
+}
+
+.butn:hover img {
+  transform: rotate(10deg); /* Fait légèrement tourner l'image au survol */
+  opacity: 0.9; /* Réduit un peu l'opacité */
+}
+
+.butn:active {
+  transform: scale(0.95); /* Réduction lors du clic */
+}
+
+.butn:focus {
+  outline: none; /* Supprime l'outline par défaut */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.8); /* Ajoute une lueur pour le focus */
+}
+
+
+.butne { 
+  background-color: transparent; /* Arrière-plan invisible */
+  border: none; /* Supprime la bordure */
+  padding: 8px; /* Espacement autour de l'image */
+  border-radius: 80%; /* Forme circulaire */
+  display: inline-flex; /* Aligne le contenu en ligne de manière flexible */
+  align-items: center; /* Centre verticalement l'image */
+  justify-content: center; /* Centre horizontalement l'image */
+  cursor: pointer; /* Indique que le bouton est cliquable */
+  transition: all 0.3s ease; /* Animation douce pour les changements */
+  position: relative;
+  left: 146px; top:3px
+}
+
+.butne img {
+  width: 30px; /* Taille de l'image */
+  height: 30px;
+  display: block; /* Supprime les espaces indésirables */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Ajoute des animations */
+}
+
+.butne :hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Ajoute un fond léger au survol */
+  transform: scale(1.05); /* Agrandit légèrement le bouton */
+}
+
+.butne:hover img { 
+  transform: rotate(10deg); /* Fait légèrement tourner l'image au survol */
+  opacity: 0.9; /* Réduit un peu l'opacité */
+}
+
+.butne:active { 
+  transform: scale(0.95); /* Réduction lors du clic */
+}
+
+.butne:focus {
+  outline: none; /* Supprime l'outline par défaut */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.8); /* Ajoute une lueur pour le focus */
+}
+
+/* Bouton secondaire (gris) */
+.suivan {
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 1em;
+  background-color: #6c757d; /* gris */
+  margin-left: 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.suivan:hover {
+  background-color:  #5a6268; /* Gris plus foncé au survol */
+  transform: scale(1.05); /* Zoom léger */
+}
+
+.suivan:active {
+  transform: scale(0.95); /* Effet d'enfoncement */
+}
+
+/* Bouton principal (bleu) */
+.precident {
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 1em;
+  background-color: #2980b9; /* Bleu */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.precident:hover {
+  background-color: #3498db; /* Bleu plus clair au survol */
+  transform: scale(1.05); /* Zoom léger */
+}
+
+.precident:active {
+  transform: scale(0.95); /* Effet d'enfoncement */
+}
+
+/* Focus pour accessibilité */
+.suivan:focus, .precident:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Ombre légère pour le focus */
+}
+.bttn {
+  font-family: 'Arial', sans-serif;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+}
+.bttn.cancel::before {
+  font-family: fontAwesome;
+  content: "\f00d\00a0";
+}
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+
+  &:hover {
+    background-color: #c82333;
+  }
+
+  &:active {
+    background-color: #bd2130;
+  }
+}
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+}
+/* Modal principal */
+.file-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  max-width: 800px;
+  z-index: 1050;
+  animation: slideDown 0.3s ease;
+}
+
+/* Animation d'apparition */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Header du modal */
+.file-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f4f6f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.file-modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.file-modal-header .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.file-modal-header .close-btn:hover {
+  color: #dc3545;
+}
+
+/* Corps du modal */
+.file-modal-body {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Table stylée */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.styled-table thead th {
+  background-color: #f4f6f9;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #555;
+  padding: 10px 15px;
+  border-bottom: 2px solid #ddd;
+  text-align: left;
+}
+
+.styled-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.styled-table tbody td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.styled-table tbody td button {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+}
+
+/* Scroll pour les longues listes */
+.file-modal-body {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.file-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.file-modal-body::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.file-modal-body::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+/* Custom file input styling */
+.custom-file-input {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 2px solid #2e4e70;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  width: 100%; /* Make it responsive */
+}
+
+.custom-file-input:hover {
+  border-color: #2e4e70; /* Darker blue on hover */
+  background-color: #e9ecef; /* Light gray background on hover */
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+.custom-file-input:focus {
+  border-color: #2e4e70; /* Blue border when focused */
+  background-color: #e9ecef; /* Light gray background */
+  outline: none;
+}
+
+/* For hiding the default file input button in some browsers */
+.custom-file-input::-webkit-file-upload-button {
+  display: none;
+}
+
+/* Optional: Custom label before file selection */
+.custom-file-input::before {
+  content: '📎';
+  font-size: 16px;
+  margin-right: 8px;
+}
+/* Styling for the label */
+label {
+  font-weight: 500;
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.custom-container {
+  margin-left: 350px;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  top: -40px; /* Distance depuis le haut */
+  left: 0; /* Point de départ sur l'axe X */
+  width: auto; /* Facultatif pour éviter les problèmes de largeur */
+}
+/* Bouton de type lien (Voir fichiers ajoutés) */
+.btn-link {
+  background: none;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0;
+
+}
+/* Spécifique au toggle de la liste */
+.file-list-toggle {
+  font-weight: normal; /* Annule la mise en gras */
+  text-transform: none; /* Texte sans majuscules */
+  color: #050505;
+}
+/* Custom margin-top class */
+.mt-80 {
+  margin-top: 80px !important;
+}
+
+/* Ensure it doesn't conflict with other classes */
+.wizard-fieldset.mt-80 {
+  margin-top: 80px !important;
+}
+.ngp-select {
+  width: 180%; /* Set the desired width */
+  min-width: 10ch; /* Ensures a minimum width */
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  height: 45px;
+  padding: 12px 20px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: left;
+}
+
+.ngp-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+
+
+.input-group.ngp-select {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  gap: 8px;
+  position: relative;
+  left: -180px; /* Replaces the margin-left for better positioning control */
+  top:-13px;
+}
+.ngp-dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%; /* Positionne le menu juste en dessous de l'input */
+  left: 0;
+  width: 100%;
+  max-height: 200px; /* Limite la hauteur du menu */
+  overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* S'assure que le menu se trouve au-dessus d'autres éléments */
+}
+
+.dropdown-menu div {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdown-menu div:hover {
+  background-color: #f1f1f1;
+}
+.MNTngp-select { 
+  width: 150%; /* Set the desired width */
+  min-width: 10ch; /* Ensures a minimum width */
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  height: 45px;
+  padding: 12px 20px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+}
+
+.MNTngp-select:focus { 
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.input-group.MNTngp-select { 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  left: -67px; /* Replaces the margin-left for better positioning control */
+}
+
+.codeP-select {  
+  width: 130%; /* Set the desired width */
+  min-width: 10ch; /* Ensures a minimum width */
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  height: 45px;
+  padding: 12px 20px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+}
+
+.codeP-select:focus { 
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.input-group.codeP-select { 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  left: -16px; /* Replaces the margin-left for better positioning control */
+}
+
+.unite-select {   
+  width: 100%; /* Set the desired width */
+  min-width: 10ch; /* Ensures a minimum width */
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  height: 45px;
+  padding: 12px 20px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+}
+
+.unite-select:focus { 
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.input-group.unite-select { 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  left: 9px; /* Replaces the margin-left for better positioning control */
+}
+.quantite-select {    
+  width: 120%; /* Set the desired width */
+  min-width: 10ch; /* Ensures a minimum width */
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  height: 45px;
+  padding: 12px 20px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+}
+
+.quantite-select:focus { 
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.input-group.quantite-select { 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  left: 7px; /* Replaces the margin-left for better positioning control */
+}
+.ngp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.ngp-table thead {
+  background-color: #2c3e50;
+  color: #000000;
+  
+}
+
+.ngp-table th,
+.ngp-table td {
+
+  border: 1px solid #ddd;
+}
+
+.ngp-table tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.ngp-table tbody tr:hover {
+  background-color: #eaf3fb;
+}
+
+.dropdown-list {
+  position: absolute;
+  z-index: 1000;
+  background: #fff;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.flex-item {
+  flex-grow: 1;
+  width: 100%;
+}
+.info {
+  background-color: #f8f9fa; /* Couleur btn-light Bootstrap */
+  color: #212529; /* Couleur de texte par défaut pour Bootstrap */
+  border: none; /* Supprime les bordures */
+  border-radius: 50%; /* Bouton arrondi (cercle) */
+  width: 26px; /* Taille fixe (largeur) */
+  height: 26px; /* Taille fixe (hauteur) */
+  display: flex; /* Alignement centré */
+  align-items: center; /* Centre verticalement l'icône */
+  justify-content: center; /* Centre horizontalement l'icône */
+  font-size: 16px; /* Taille de l'icône */
+  cursor: pointer; /* Curseur en pointeur */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation douce */
+  position: relative;
+  top: 25px;
+  left: -10px;
+}
+.info:hover {
+  background-color: #e2e6ea; /* Couleur btn-light au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.info:focus {
+  outline: none; /* Retire le contour par défaut */
+  box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.25); /* Ombre pour l'accessibilité */
+}
+
+.info i {
+  margin: 0; /* Supprime les marges par défaut de l'icône */
+}
+.search{
+  background-color: #f8f9fa; /* Couleur btn-light Bootstrap */
+  color: #212529; /* Couleur de texte par défaut pour Bootstrap */
+  border: none; /* Supprime les bordures */
+  border-radius: 50%; /* Bouton arrondi (cercle) */
+  width: 26px; /* Taille fixe (largeur) */
+  height: 26px; /* Taille fixe (hauteur) */
+  display: flex; /* Alignement centré */
+  align-items: center; /* Centre verticalement l'icône */
+  justify-content: center; /* Centre horizontalement l'icône */
+  font-size: 16px; /* Taille de l'icône */
+  cursor: pointer; /* Curseur en pointeur */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation douce */
+}
+.search:hover {
+  background-color: #e2e6ea; /* Couleur btn-light au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.search:focus {
+  outline: none; /* Retire le contour par défaut */
+  box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.25); /* Ombre pour l'accessibilité */
+}
+
+.search i {
+  margin: 0; /* Supprime les marges par défaut de l'icône */
+}
+
+
+.table-container {
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.table td {
+  border: 1px solid #dee2e6;
+}
+
+.label {
+  font-weight: bold;
+  width: 200px;
+}
+
+.value {
+  color: #555;
+}
+
+/* Overlay background */
+/* Overlay background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+/* Modal box */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  max-height: 280vh;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
+/* Ensure modal is responsive for small screens */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,9 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8081
+  application:
+    name: refproject-service
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB

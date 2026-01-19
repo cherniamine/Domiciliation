@@ -1,0 +1,1449 @@
+<html>
+<body class="custom">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+  <section class="wizard-section mt-4 mb-3">
+    <div align="center">
+      <div class="col-lg-6 col-md-6"></div>
+      <div class="col-lg-6 col-md-6">
+        <div class="form-wizard">
+          <form action="" method="post" role="form">
+            <div class="form-wizard-header">
+              <p>Remplir tous les champs du formulaire pour passer à l'étape suivante !</p>
+              <ul class="list-unstyled form-wizard-steps clearfix">
+                <li class="active"><span>1</span></li>
+                <li><span>2</span></li>
+                <li><span>3</span></li>
+                <li><span>4</span></li>
+                <li><span>5</span></li>
+                <li><span>6</span></li>
+              </ul>
+            </div>
+
+            <fieldset class="wizard-fieldset show" data-tab-content="PersonalInformation" id="personalInformation">
+              <h5>Données Demande</h5>
+
+              <div class="form-group">
+                <label for="natureDemande">Nature de la demande</label>
+                <select id="natureDemande" name="natureDemande" class="form-control" [(ngModel)]="depotDomiTitre.natureDemande">
+                  <option *ngFor="let nature of natureDemandeOptions; let i = index" [value]="nature" [disabled]="i === 0">{{ nature }}</option>
+                </select>
+                <div class="wizard-form-error"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="codeTitre">Code du titre</label>
+                <select id="codeTitre" name="codeTitre" class="form-control" [(ngModel)]="depotDomiTitre.codeTitre" (change)="updateCodPaysValues()">
+                  <option *ngFor="let code of getCodeTitreOptions(); let i = index" [value]="code" [disabled]="i === 0">{{ code }}</option>
+                </select>
+                <div class="wizard-form-error"></div>
+              </div>
+              <div class="form-group ">
+                <label for="codeAgence">Code Agence</label>
+                <input 
+                    type="text" 
+                    id="codeAgence" 
+                    name="codeAgence" 
+                    class="form-control" 
+                    style="margin-bottom:-50px;"
+                    [value]="getAgenceDisplayValue()" 
+                    (input)="onAgenceInputChange($event)" 
+                    (keydown.enter)="onAgenceEnter()" 
+                    placeholder="Entrez le code de l'agence">
+
+            
+                <!-- Bouton pour ouvrir la liste des agences -->
+                <button 
+                    type="button" 
+                    class="butne d-flex align-items-center me-2" 
+                    (click)="openAgenceModal()">
+                    <img src="assets/search.png" alt="Search Icon" style="width: 30px; height: 30px;">
+                </button>
+             <!-- Error message for Code Agence -->
+    <div *ngIf="!depotDomiTitre.codeAgence || depotDomiTitre.codeAgence.toString().trim() === ''" class="wizard-form-error">
+      Veuillez sélectionner un code Agence valide.
+  </div>
+                <!-- Modal pour sélectionner une agence -->
+                <div *ngIf="isAgenceModalOpen" class="modal">
+                    <div class="modal-content">
+                        <span class="close" (click)="closeAgenceModal()">&times;</span>
+                        <h2>Choisir une Agence</h2>
+                        
+                        <!-- Barre de recherche -->
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Rechercher une Agence" 
+                            [(ngModel)]="searchAgenceCode" 
+                            (input)="filterAgences()" 
+                            name="agenceSearch"> 
+                        
+                        <!-- Liste des agences -->
+                        <table class="activity-table">
+                            <thead>
+                                <tr>
+                                    <th>Code Agence</th>
+                                    <th>Libellé Agence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr 
+                                    *ngFor="let agence of filteredAgences" 
+                                    (click)="selectAgence('codeAgence', agence.agenceEntityPK.codeAgenceBct)">
+                                    <td>{{ agence.agenceEntityPK.codeAgenceBct }}</td>
+                                    <td>{{ agence.libAgence }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="wizard-form-error"></div>
+            </div>
+
+              <div class="form-group">
+                <label for="noPieceClient">Matricule Fiscale</label>
+                <input 
+                  type="text" 
+                  name="noPieceClient" 
+                  id="noPieceClient" 
+                  class="form-control" 
+                  [(ngModel)]="depotDomiTitre.noPieceClient" 
+                  (change)="onNoPieceClientChange()" 
+                  placeholder="Entrez le RNE">
+                <!-- Error message if Matricule Fiscale is empty -->
+                <div *ngIf="!depotDomiTitre.noPieceClient || depotDomiTitre.noPieceClient.trim() === ''" class="wizard-form-error">
+                  Veuillez entrer un Matricule Fiscale.
+                </div>
+              </div>
+              <div class="nom-prenom-container" *ngIf="nomPrenom">
+                <span class="nom-prenom">{{ nomPrenom }}</span>
+              </div>
+                        
+                        
+              <div class="form-group">
+                <label for="numeroCompte">Compte RIB</label>
+                <select class="form-control wizard-required" id="numeroCompte" [(ngModel)]="depotDomiTitre.numCompte" name="numCompte">
+                  <option *ngFor="let rib of ribs" [value]="rib">{{ rib }}</option>
+                </select>
+                <div class="wizard-form-error"></div>
+              </div>
+
+              <div class="form-group">
+                <label>Totalement exportatrice :</label>
+                <div class="radio-group">
+                  <div class="radio-label">
+                    <input name="regimeSecteur" id="radioOui" type="radio" value="oui" 
+                      [(ngModel)]="depotDomiTitre.regimeSecteurActivite" />
+                    <label for="radioOui">Oui</label>
+                  </div>
+                  <div class="radio-label">
+                    <input name="regimeSecteur" id="radioNon" type="radio" value="non" 
+                      [(ngModel)]="depotDomiTitre.regimeSecteurActivite" />
+                    <label for="radioNon">Non</label>
+                  </div>
+                </div>
+              </div>
+              
+            
+            <div class="form-group">
+              <label>Type d'activité :</label>
+              <div>
+                  <label class="radio-label">
+                      <input type="radio" [(ngModel)]="depotDomiTitre.activiteType" value="primaire" name="activiteType"> 
+                      Primaire
+                  </label>
+                  <label class="radio-label">
+                      <input type="radio" [(ngModel)]="depotDomiTitre.activiteType" value="secondaire" name="activiteType"> 
+                      Secondaire
+                  </label>
+              </div>
+          </div>
+          
+          <div class="form-group text-left">
+            <label>Activité principale :</label>
+            <div class="d-flex align-items-center">
+              <!-- Small input for the activity code -->
+              <input type="text" 
+                     class="form-control form-control-sm me-2" 
+                     id="activitePrincipale" 
+                     placeholder="Code" 
+                     [(ngModel)]="depotDomiTitre.codeSecteurActiviteCode" 
+                     name="codeSecteurActiviteCode"
+                     (keydown.enter)="onActivityEnter()" 
+                     style="width: 80px;"> 
+          
+              <!-- Button to open activity list modal -->
+              <button 
+              type="button" 
+              class="butn d-flex align-items-center me-2" 
+              (click)="showActivityList('codeSecteurActivite')">
+              <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+            </button>
+            
+              <!-- Label for the activity -->
+              <span class="form-text">
+                {{ depotDomiTitre.codeSecteurActiviteLabel || 'Libellé de l\'activité' }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="form-group text-left" *ngIf="depotDomiTitre.activiteType === 'secondaire'">
+            <label>Activité secondaire :</label>
+            <div class="d-flex align-items-center">
+              <!-- Small input for the secondary activity code -->
+              <input type="text" 
+                     class="form-control form-control-sm me-2" 
+                     id="activiteSecondaire" 
+                     placeholder="Code" 
+                     [(ngModel)]="depotDomiTitre.codeSecteurActiviteSecCode" 
+                     name="codeSecteurActiviteSecCode"
+                     [disabled]="!depotDomiTitre.codeSecteurActivite" 
+                     (keydown.enter)="onSecondaryActivityEnter()" 
+                     style="width: 80px;"> 
+          
+              <!-- Button to open activity list modal -->
+              <button type="button" 
+              class="butn d-flex align-items-center me-2" 
+                      (click)="showActivityList('codeSecteurActiviteSec')" 
+                      [disabled]="!depotDomiTitre.codeSecteurActivite">
+                      <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+              </button>
+              <!-- Label for the secondary activity -->
+              <span class="form-text">
+                {{ depotDomiTitre.codeSecteurActiviteSecLabel || 'Libellé de l\'activité secondaire' }}
+              </span>
+            </div>
+          </div>
+          
+          
+            <!-- Activity selection modal -->
+            <div *ngIf="isModalOpen" class="modal">
+              <div class="modal-content">
+                  <span class="close" (click)="closeModal()">&times;</span>
+                  <h2>Choisir une activité</h2>
+
+                  <!-- Search bar -->
+                  <input type="text" class="form-control" placeholder="Rechercher une activité" 
+                        [(ngModel)]="searchCode" (input)="filterActivities()" 
+                        name="activitySearch" /> <!-- Added name attribute for ngModel validation -->
+
+                  <table class="activity-table">
+                      <thead>
+                          <tr>
+                              <th>Activité</th>
+                              <th>Libellé Activité</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let activity of filteredActivities" 
+                              (click)="selectActivity(selectedField, activity.code)">
+                              <td>{{ activity.code }}</td>
+                              <td>{{ activity.label }}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+            
+            <div class="form-group clearfix">
+              <button type="button" class="precident" (click)="goToNextStep()">Suivant</button>
+            </div>
+          </fieldset>
+          <fieldset class="wizard-fieldset" data-tab-content="AccountInformation" id="DonneFacture">
+            <h5 class="text-center">Données Facture</h5>
+
+            <div class="form-group">
+                <label for="numeroFacture">Numéro Contrat Commerciale</label>
+                <input type="text" class="form-control wizard-required" id="numeroFacture" placeholder="Numéro facture"
+                       [(ngModel)]="depotDomiTitre.numContratCom" name="numContratCom">
+                <div class="wizard-form-error"></div>
+              </div>
+              <div class="form-group">
+                <label for="dateFacture">Date Contrat Commerciale</label>
+                <input type="date" class="form-control wizard-required" id="dateFacture" placeholder="Date facture"
+                       [(ngModel)]="depotDomiTitre.dateContratCom" name="dateContratCom">
+                <div class="wizard-form-error"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="nbrColis">Nombre de colis</label>
+                <input type="number" class="form-control wizard-required" id="nbrColis" placeholder="Nombre de colis"
+                       [(ngModel)]="depotDomiTitre.nbrColis" name="nbrColis">
+                <div class="wizard-form-error"></div>
+              </div>
+            
+                <!-- Devise Selection Section -->
+                <div class="form-group row">
+                <div class="col-md-6 text-center">
+                  <label for="devise">Devise</label>
+                  <div class="d-flex align-items-center">
+                    <!-- Input for the devise code -->
+                    <input type="text" class="form-control wizard-required" id="devise" 
+                          placeholder="Code" [(ngModel)]="depotDomiTitre.codeDevise" 
+                          name="codeDevise" (keydown.enter)="onDeviseEnter()" 
+                          style="width: 80px;">
+                    
+                    <!-- Button to open the devise modal -->
+                    <button type="button" class="butn d-flex align-items-center me-2" 
+                            style="margin-left: 10px;" (click)="showDeviseList()">
+                            <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                    </button>
+                  </div>
+                  <!-- Display the label below the code input -->
+                  <span class="form-text mt-1">
+                    {{ depotDomiTitre.libDevise || 'Libellé de la devise' }}
+                  </span>
+                </div>
+
+                <!-- Modal for Selecting a Devise -->
+                <div *ngIf="isDeviseModalOpen" class="modal">
+                  <div class="modal-content">
+                    <span class="close" (click)="closeDeviseModal()">&times;</span>
+                    <h2>Select Devise</h2>
+                      <!-- Search Bar -->
+                      <div class="mt-3">
+                        <input type="text" class="form-control" placeholder="Rechercher une Devise" 
+                              [(ngModel)]="searchDevise" (input)="filterDevises()" 
+                              name="deviseSearch" />
+                      </div>
+                    <!-- Table to Display Devises -->
+                    <table class="table table-striped activity-table">
+                      <thead>
+                        <tr>
+                          <th>Code Devise</th>
+                          <th>Sigle Devise</th>
+                          <th>Libellé Devise</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let devise of filteredDevises" 
+                            (click)="onDeviseSelected(devise)">
+                          <td>{{ devise.codeDevise }}</td>
+                          <td>{{ devise.sigleDevise }}</td>
+                          <td>{{ devise.libDevise }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                
+                  <!-- Mode de livraison -->
+                  <div class="col-md-6 text-center">
+                    <label for="modeLivraison">Mode de livraison</label>
+                    <div class="d-flex align-items-center">
+                      <!-- Small input for the delivery mode code -->
+                      <input type="text" class="form-control form-control-sm me-2" id="modeLivraison" 
+                             placeholder="Code" 
+                             [(ngModel)]="depotDomiTitre.codeModLivCode" 
+                             name="codeModLivCode"
+                             (keydown.enter)="onModeLivEnter()" 
+                             style="width: 80px;">
+                      
+                      <!-- Button to open delivery mode list modal -->
+                      <button type="button" class="butn d-flex align-items-center me-2" 
+                              (click)="showModeLivList()">
+                              <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                      </button>
+                    </div>
+                    <!-- Display the label below the code input -->
+                    <span class="form-text mt-1">
+                      {{ depotDomiTitre.codeModLivLabel || 'Libellé du mode de livraison' }}
+                    </span>
+                  </div>
+                  <!-- Modal for selecting a delivery mode -->
+                <div *ngIf="isModalOpen" class="modal">
+                  <div class="modal-content">
+                    <span class="close" (click)="closeModal()">&times;</span>
+                    <h2>Select Mode</h2>
+                    <!-- Table to display modes -->
+                    <table class="activity-table">
+                      <thead>
+                        <tr>
+                          <th>Code Mode de Livraison</th>
+                          <th>Libellé Mode de Livraison</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let mode of allCodeModLivList" 
+                            (click)="onModeSelected(mode)">
+                          <td>{{ mode.codeModLiv }}</td>
+                          <td>{{ mode.libModLiv }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>  
+              </div>
+                <!-- Error Message Display -->
+                <div class="wizard-form-error mt-3"></div>
+
+              
+
+                <div class="form-group">
+                  <label for="acompteAvance">Acompte/Avance</label>
+                  <div class="input-group">
+                      <input 
+                          type="number" 
+                          class="form-control wizard-required" 
+                          id="acompteAvance" 
+                          placeholder="0 - 100%"
+                          [(ngModel)]="depotDomiTitre.acompte" 
+                          name="acompte" 
+                          [min]="0" 
+                          [max]="100"
+                          step="0.01" 
+                          (input)="onAcompteChange()"
+                          required
+                      >
+                      <span class="input-group-text" style="position: relative; left: -20px;">%</span> 
+                  </div>
+              
+                  <div class="wizard-form-error" *ngIf="acompteInvalid">
+                      <span>Veuillez entrer un pourcentage entre 0 et 100.</span>
+                  </div>
+              </div>
+                
+                
+          
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="montantPTFN">Montant PTFN (DVS)</label>
+                  <input type="number" class="form-control wizard-required" id="montantPTFN" 
+                         placeholder="Montant PTFN (DVS)" [(ngModel)]="depotDomiTitre.mntDvsPtfnFact" 
+                         name="mntDvsPtfnFact" (ngModelChange)="convertMntPTFNDvsToPTFNTnd()">
+                  <div class="wizard-form-error montant-ptfn"></div>
+                </div>
+              
+                <div class="col-md-6">
+                  <label for="montantPTFNTnd">Montant PTFN (TND)</label>
+                  <input type="number" class="form-control" id="montantPTFNTnd" 
+                         placeholder="Montant PTFN (TND)" [(ngModel)]="depotDomiTitre.mntTndPtfn" 
+                         name="mntTndPtfn" readonly>
+                </div>
+              
+                <!-- Combined error message for both Montant PTFN fields -->
+                <div class="wizard-form-error montant-ptfn"></div>
+              </div>
+              
+              
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="montantFOB">Montant FOB (DVS)</label>
+                  <input type="number" class="form-control wizard-required" id="montantFOB" 
+                         placeholder="Montant FOB (DVS)" [(ngModel)]="depotDomiTitre.mntDvsFobFact" 
+                         name="mntDvsFobFact" (ngModelChange)="convertMntFOBDvsToFOBTnd()">
+                </div>
+              
+                <div class="col-md-6">
+                  <label for="montantFOBTnd">Montant FOB (TND)</label>
+                  <input type="number" class="form-control wizard-required" id="montantFOBTnd" 
+                         placeholder="Montant FOB (TND)" [(ngModel)]="depotDomiTitre.mntTndFob" 
+                         name="mntTndFob" readonly>
+              </div>
+              
+              <div class="wizard-form-error montant-fob"></div>
+            </div> 
+              
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="nomFournisseur" style="margin-top: 20px;">Nom fournisseur</label>
+                  <input type="text" class="form-control wizard-required" id="nomFournisseur" 
+                         placeholder="Nom fournisseur" 
+                         [(ngModel)]="depotDomiTitre.nomFournisseur" name="nomFournisseur" style="margin-top: 4px;" >
+
+                </div>
+              
+                <div class="col-md-6">
+                  <label for="adresseFournisseur">Adresse fournisseur</label>
+                  <input type="text" class="form-control wizard-required" id="adresseFournisseur" 
+                         placeholder="Adresse fournisseur"
+                         [(ngModel)]="depotDomiTitre.adrFournisseur" name="adrFournisseur">
+                
+                </div>
+                              <!-- Error message container for both fields -->
+                              <div class="wizard-form-error nom-fournisseur"></div>
+                              </div>              
+
+              <!-- Pays -->
+              <div class="form-group row">
+                <!-- Pays d'origine -->
+                <div class="col-md-6">
+                  <label for="paysOrigine">Pays d'origine</label>
+                  <div class="d-flex align-items-center">
+                    <input type="text" 
+                           class="form-control wizard-required me-2" 
+                           id="paysOrigine" 
+                           placeholder="Code" 
+                           [(ngModel)]="depotDomiTitre.codPayOrig" 
+                           name="codePays" 
+                           (keydown.enter)="onPaysOrigineEnter()" 
+                           style="width: 80px;">
+                    <button type="button" 
+                            class="butn d-flex align-items-center"  
+                            (click)="showPaysOrigineList()">
+                            <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                    </button>
+                  </div>
+                  <span class="form-text mt-1">
+                    {{ depotDomiTitre.libPaysOrig || 'Libellé du pays' }}
+                  </span>
+                    <!-- Modal for selecting paysOrigine -->
+                <div *ngIf="isPaysOrigineModalOpen" class="modal">
+                  <div class="modal-content">
+                    <span class="close" (click)="closePaysOrigineModal()">&times;</span>
+                    <h2>Select Pays d'origine</h2>
+                      <!-- Search Bar -->
+                      <div class="mt-3">
+                        <input type="text" class="form-control" placeholder="Rechercher un Pay" 
+                              [(ngModel)]="searchPays" (input)="filterPays()" 
+                              name="PaySearch" />
+                      </div>
+            
+                    <!-- Table to display pays -->
+                    <table class="activity-table">
+                      <thead>
+                        <tr>
+                          <th>Code Pays</th>
+                          <th>Libellé Pays</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let pays of filteredPays" (click)="onPaysOrigineSelected(pays)">
+                          <td>{{ pays.codePays }}</td>
+                          <td>{{ pays.libPays }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </div>
+              
+                <!-- Pays d'achat -->
+                <div class="col-md-6">
+                  <label for="paysAchat">Pays d'achat</label>
+                  <div class="d-flex align-items-center">
+                    <input type="text" 
+                           class="form-control wizard-required me-2" 
+                           id="paysAchat" 
+                           placeholder="Code" 
+                           [(ngModel)]="depotDomiTitre.codPayAch" 
+                           name="codPayAch" 
+                           (keydown.enter)="onPaysAchatEnter()" 
+                           style="width: 80px;">
+                    <button type="button" 
+                            class="butn d-flex align-items-center"  
+                            (click)="showPaysAchatList()">
+                            <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                    </button>
+                  </div>
+                  <span class="form-text mt-1">
+                    {{ depotDomiTitre.libPaysAch || 'Libellé du pays' }}
+                  </span>
+                  
+                  <!-- Modal for selecting paysAchat -->
+                  <div *ngIf="isPaysAchatModalOpen" class="modal">
+                    <div class="modal-content">
+                      <span class="close" (click)="closePaysAchatModal()">&times;</span>
+                      <h2>Select Pays d'achat</h2>
+                         <!-- Search Bar -->
+                         <div class="mt-3">
+                          <input type="text" class="form-control" placeholder="Rechercher un Pay" 
+                                [(ngModel)]="searchPays" (input)="filterPays()" 
+                                name="PaySearch" />
+                        </div>
+                      <!-- Table to display pays -->
+                      <table class="activity-table">
+                        <thead>
+                          <tr>
+                            <th>Code Pays</th>
+                            <th>Libellé Pays</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let pays of filteredPays" (click)="onPaysAchatSelected(pays)">
+                            <td>{{ pays.codePays }}</td>
+                            <td>{{ pays.libPays }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              
+              <div class="form-group row">
+                <!-- Pays de provenance -->
+                <div class="col-md-6">
+                  <label for="paysProvenance">Pays de provenance</label>
+                  <div class="d-flex align-items-center">
+                    <input type="text" 
+                           class="form-control wizard-required me-2" 
+                           id="paysProvenance" 
+                           placeholder="Code" 
+                           [(ngModel)]="depotDomiTitre.codPayProv" 
+                           name="codPayProv" 
+                           (keydown.enter)="onPaysProvenanceEnter()" 
+                           style="width: 80px;">
+                    <button type="button" 
+                            class="butn d-flex align-items-center"  
+                            (click)="showPaysProvenanceList()">
+                            <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                    </button>
+                  </div>
+                  <span class="form-text mt-1">
+                    {{ depotDomiTitre.libPaysProv || 'Libellé du pays' }}
+                  </span>
+                
+                  <div *ngIf="isPaysProvenanceModalOpen" class="modal">
+                    <div class="modal-content">
+                      <span class="close" (click)="closePaysProvenanceModal()">&times;</span>
+                      <h2>Select Pays de provenance</h2>
+                         <!-- Search Bar -->
+                         <div class="mt-3">
+                          <input type="text" class="form-control" placeholder="Rechercher un Pay" 
+                                [(ngModel)]="searchPays" (input)="filterPays()" 
+                                name="PaySearch" />
+                        </div>
+                      <table class="activity-table">
+                        <thead>
+                          <tr>
+                            <th>Code Pays</th>
+                            <th>Libellé Pays</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let pays of filteredPays" (click)="onPaysProvenanceSelected(pays)">
+                            <td>{{ pays.codePays }}</td>
+                            <td>{{ pays.libPays }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              
+              
+                <!-- Pays de destination -->
+                <div class="col-md-6">
+                  <label for="paysDestination">Pays de destination</label>
+                  <div class="d-flex align-items-center">
+                    <input type="text" 
+                           class="form-control wizard-required me-2" 
+                           id="paysDestination" 
+                           placeholder="Code" 
+                           [(ngModel)]="depotDomiTitre.codePaysDestDef" 
+                           name="codePaysDestDef" 
+                           (keydown.enter)="onPaysDestinationEnter()" 
+                           style="width: 80px;">
+                    <button type="button" 
+                            class="butn d-flex align-items-center"  
+                            (click)="showPaysDestinationList()">
+                            <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                    </button>
+                  </div>
+                  <span class="form-text mt-1">
+                    {{ depotDomiTitre.libPaysDestDef || 'Libellé du pays' }}
+                  </span>
+                </div>
+                <div *ngIf="isPaysDestinationModalOpen" class="modal">
+                  <div class="modal-content">
+                    <span class="close" (click)="closePaysDestinationModal()">&times;</span>
+                    <h2>Select Pays de destination</h2>
+                       <!-- Search Bar -->
+                       <div class="mt-3">
+                        <input type="text" class="form-control" placeholder="Rechercher un Pay" 
+                              [(ngModel)]="searchPays" (input)="filterPays()" 
+                              name="PaySearch" />
+                      </div>
+                    <table class="activity-table">
+                      <thead>
+                        <tr>
+                          <th>Code Pays</th>
+                          <th>Libellé Pays</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let pays of filteredPays" (click)="onPaysDestinationSelected(pays)">
+                          <td>{{ pays.codePays }}</td>
+                          <td>{{ pays.libPays }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="form-group row">
+                <!-- Mode de règlement -->
+                <div class="col-md-6">
+                  <label for="modeReglement">Mode de règlement</label>
+                  <div class="d-flex align-items-center">
+                    <input type="text" 
+                           class="form-control wizard-required me-2" 
+                           id="modeReglement" 
+                           placeholder="Code" 
+                           [(ngModel)]="depotDomiTitre.codeModReg" 
+                           name="codeModReg" 
+                           (keydown.enter)="onModeReglementEnter()" 
+                           style="width: 80px;">
+                    <button type="button" 
+                            class="butn d-flex align-items-center" 
+                            (click)="showModeReglementList()">
+                            <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                    </button>
+                  </div>
+                  <span class="form-text mt-1">
+                    {{ depotDomiTitre.libModReg || 'Libellé du mode de règlement' }}
+                  </span>
+                </div>
+                
+                <!-- Modal for selecting a mode de règlement -->
+                <div *ngIf="isModeReglementModalOpen" class="modal">
+                  <div class="modal-content">
+                    <span class="close" (click)="closeModeReglementModal()">&times;</span>
+                    <h2>Sélectionnez le mode de règlement</h2>
+            
+                    <!-- Table to display modes of regulation -->
+                    <table class="activity-table">
+                      <thead>
+                        <tr>
+                          <th>Code</th>
+                          <th>Libellé</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let mode of allCodeModRegList" 
+                            (click)="onModeReglementSelected(mode)">
+                          <td>{{ mode.codeModReg }}</td>
+                          <td>{{ mode.libModReg }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+             
+              <div class="wizard-form-error"></div>
+              
+                <!-- Délai de règlement -->
+                <div class="col-md-6">
+                  <label for="delaisReglement">Délai de règlement</label>
+                  <div class="d-flex align-items-center">
+                    <input type="text" 
+                           class="form-control wizard-required me-2" 
+                           id="delaisReglement" 
+                           placeholder="Code" 
+                           [(ngModel)]="depotDomiTitre.codeDelReg" 
+                           name="codeDelReg" 
+                           (keydown.enter)="onDelRegEnter()" 
+                           style="width: 80px;">
+                    <button type="button" 
+                            class="butn d-flex align-items-center" 
+                            (click)="showDelRegList()">
+                            <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                    </button>
+                  </div>
+                  <span class="form-text mt-1">
+                    {{ depotDomiTitre.libDelReg || 'Libellé du délai de règlement' }}
+                  </span>
+
+                </div>
+              
+                  <!-- Modal for selecting a délai de règlement -->
+                  <div *ngIf="isDelRegModalOpen" class="modal">
+                    <div class="modal-content">
+                      <span class="close" (click)="closeDelRegModal()">&times;</span>
+                      <h2>Sélectionner un délai de règlement</h2>
+                      
+                      <!-- Table to display délai de règlement options -->
+                      <table class="activity-table">
+                        <thead>
+                          <tr>
+                            <th>Code Délai</th>
+                            <th>Libellé Délai</th>
+                            <th>Délai</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let delai of allCodeDelRegList" 
+                              (click)="onDelRegSelected(delai)">
+                            <td>{{ delai.codeDelReg }}</td>
+                            <td>{{ delai.libDelReg }}</td>
+                            <td>{{ delai.delais }} {{ delai.periode }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+              <div class="wizard-form-error"></div>
+            
+              
+              
+                <!-- Régime statistique Input and Modal -->
+            <div class="form-group text-left">
+            
+                  <label for="regimeStat">Régime statistique</label>
+                <div class="d-flex align-items-center">
+                  <!-- Input for the Régime statistique code -->
+                  <input type="text" class="form-control form-control-sm me-2" id="regimeStat" 
+                        placeholder="Code" [(ngModel)]="depotDomiTitre.codeRegimeStat" 
+                        name="codeRegimeStat" (keydown.enter)="onRegStatEnter()" 
+                        style="width:80px;">
+                  
+                  <!-- Button to open the Régime statistique modal -->
+                  <button type="button" class="butn d-flex align-items-center me-2" 
+                          (click)="showRegStatList()">
+                          <img src="assets/search.png" alt="Activity Icon" style="width: 30px; height: 30px;">
+                  </button>
+                  
+                  <!-- Display the label next to the code input (non-editable) -->
+                  <span class="form-text">
+                    {{ depotDomiTitre.libRegimeStat || 'Libellé du régime statistique' }}
+                  </span>
+                </div>
+                
+                <!-- Modal for selecting a Régime statistique -->
+                <div *ngIf="isRegStatModalOpen" class="modal">
+                  <div class="modal-content">
+                    <span class="close" (click)="closeRegStatModal()">&times;</span>
+                    <h2>Sélectionner un régime statistique</h2>
+                    
+                    <!-- Table to display Régime statistique options -->
+                    <table class="activity-table">
+                      <thead>
+                        <tr>
+                          <th>Code Régime</th>
+                          <th>Libellé Régime</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let regime of allCodeRegimeStatListe" (click)="onRegStatSelected(regime)">
+                          <td>{{ regime.codeRegimeStat }}</td>
+                          <td>{{ regime.libRegimeStat }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="wizard-form-error"></div>
+          
+            <div class="form-group clearfix">
+              <button type="button" class="suivan float-left" (click)="goToPreviousStep()">Précédent</button>
+              <button type="button" class="precident float-right" (click)="goToNextStep2()">Suivant</button>
+            </div>
+          </fieldset>
+
+         <fieldset class="wizard-fieldset" data-tab-content="BankInformation" id="BankInformation">
+          <h5>Accord BCT/Assurance</h5>
+            
+              <!-- Accord BCT Section -->
+              <div class="section-container">
+                <h5 class="section-title">Accord BCT</h5>
+                <div class="form-group">
+                  <label for="typeAccord">Type d'accord BCT</label>
+                  <select id="typeAccord" class="form-control wizard-required" [(ngModel)]="depotDomiTitre.typeAccordBct"
+                          name="typeAccordBct" (ngModelChange)="onTypeAccordBctChange($event)">
+                    <option value="">Sélectionnez le type d'accord</option>
+                    <option *ngFor="let typeAccordBct of typeAccordBctOptions" [value]="typeAccordBct">{{ typeAccordBct }}</option>
+                  </select>
+                  <div class="wizard-form-error"></div>
+                </div>
+            
+                <div class="form-group">
+                  <label for="numeroAccordBCT">Numéro d'accord BCT</label>
+                  <select id="numeroAccordBCT" class="form-control wizard-required" [(ngModel)]="depotDomiTitre.numAccordBct"
+                          name="numAccordBct" [disabled]="selectedOption !== 'AccordBCT'">
+                    <option value="">Sélectionnez le numéro d'accord BCT</option>
+                    <option *ngFor="let numAccordBct of allNumAccordBctList" [value]="numAccordBct">{{ numAccordBct }}</option>
+                  </select>
+                  <div class="wizard-form-error"></div>
+                </div>
+            
+                <div class="form-group">
+                  <label for="dateAccordBCT">Date d'accord BCT</label>
+                  <select id="dateAccordBCT" class="form-control wizard-required" [(ngModel)]="depotDomiTitre.dateAccordBct"
+                          name="dateAccordBct" [disabled]="selectedOption !== 'AccordBCT'">
+                    <option value="">Sélectionnez la date d'accord BCT</option>
+                    <option *ngFor="let date of formattedDateAccordBctList; let i = index" 
+                            [ngValue]="allDateAccordBctList[i]">{{ date }}</option>
+                  </select>
+                  <div class="wizard-form-error"></div>
+                </div>
+            
+                <div class="form-group">
+                  <label for="observationAccordBCT">Observation</label>
+                  <textarea id="observationAccordBCT" class="form-control wizard-required" 
+                            [(ngModel)]="depotDomiTitre.observationAccordBct" name="observationAccordBct"
+                            [disabled]="selectedOption !== 'AccordBCT'"></textarea>
+                            <div class="wizard-form-error"></div>
+                </div>
+                
+                <a 
+                class="icon-link icon-link-hover" style="text-align: center; align-items: center;   justify-content: center; color: #2980b9;"
+                  role="button" 
+                  (click)="consultAccord(); openModal()">
+                  Consulter
+                  <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
+                </a>
+                
+                <!-- Modal -->
+                <div 
+                  class="modal fade" 
+                  tabindex="-1" 
+                  [ngClass]="{ 'show': showModal }" 
+                  [ngStyle]="{ 'display': showModal ? 'block' : 'none', 'background-color': showModal ? 'rgba(0,0,0,0.5)' : 'transparent' }">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title modal-title-centered">Détails de l'accord BCT</h4>
+                        <button 
+                          type="button" 
+                          class="btn-close" 
+                          (click)="closeModale()" 
+                          aria-label="Close">
+                        </button>
+                      </div>
+                      <div class="modal-body d-flex flex-column align-items-center w-75 text-start">
+                        <div>
+                          <p><strong>Type de pièce client:</strong> {{ accordDetails?.typePieceClient || 'N/A' }}</p>
+                          <p><strong>No pièce client:</strong> {{ accordDetails?.noPieceClient || 'N/A' }}</p>
+                          <p><strong>Date début application:</strong> {{ accordDetails?.dateDebApplication || 'N/A' }}</p>
+                          <p><strong>Date fin application:</strong> {{ accordDetails?.dateFinApplication || 'N/A' }}</p>
+                          <p><strong>Observation:</strong> {{ accordDetails?.observationAccordBct || 'N/A' }}</p>
+                          <p><strong>Numéro contrat commercial:</strong> {{ accordDetails?.numContratCom || 'N/A' }}</p>
+                          <p><strong>Date contrat commercial:</strong> {{ accordDetails?.dateContratCom || 'N/A' }}</p>
+                          <p><strong>Sens:</strong> {{ accordDetails?.sens || 'N/A' }}</p>
+                          <p><strong>État:</strong> {{ accordDetails?.etat || 'N/A' }}</p>
+                           <p><strong>Pièce jointe:</strong> {{ accordDetails?.documents?.[0]?.referenceFichierJoint || 'N/A' }}</p>
+                        </div>
+                      </div>                      
+                    </div>
+                  </div>
+                </div>
+                
+           
+              </div>
+              
+
+           <!-- Assurance Section --> 
+            <div class="section-container">
+              <h5 class="section-title">Accord Assurance</h5>
+
+              <!-- Radio Buttons for Assurance Type -->
+              <div class="form-group">
+                <div>
+                  <label class="radio-label">
+                    <input type="radio" name="assuranceType" [(ngModel)]="assuranceType" value="Assurance"> Assurance
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="assuranceType" [(ngModel)]="assuranceType" value="Garantie Bancaire"> Garantie Bancaire
+                  </label>
+                </div>
+                <!-- Error Message for Assurance Type -->
+                <div class="wizard-form-error" style="display: none;"></div>
+              </div>
+
+              <!-- Input for Assurance Number -->
+              <div class="form-group">
+                <label for="numeroAssurance">Numéro {{ assuranceType }}</label>
+                <input type="number" id="numeroAssurance" class="form-control wizard-required"
+                      [(ngModel)]="depotDomiTitre.numAssurance" name="numAssurance" 
+                      [placeholder]="'Numéro ' + (assuranceType || 'Assurance')">
+                <!-- Error Message for Assurance Number -->
+                <div class="wizard-form-error" style="display: none;"></div>
+              </div>
+
+              <!-- Input for Assurance Date -->
+              <div class="form-group">
+                <label for="dateAssurance">Date {{ assuranceType }}</label>
+                <input type="date" id="dateAssurance" class="form-control wizard-required"
+                      [(ngModel)]="depotDomiTitre.dateAssurance" name="dateAssurance">
+                <!-- Error Message for Assurance Date -->
+                <div class="wizard-form-error" style="display: none;"></div>
+              </div>
+    
+            </div>
+              
+              <div class="form-group clearfix">
+                <button type="button" class="suivan" (click)="goToPreviousStep()">Précédent</button>
+                <button type="button" class="precident" (click)="goToNextStep3()">Suivant</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="wizard-fieldset" data-tab-content="PaymentInformation" id="NGP" >
+              <h5>Articles NGP</h5>
+            
+              <!-- Input field for specifying the number of NGPs -->
+              <div class="col-md-6">
+              <label for="numberOfNgps">Rébrique:</label>
+              <input 
+              type="number" 
+              class="form-control" 
+              id="numberOfNgps" 
+              placeholder="Enter number of NGPs" 
+              [value]="numberOfNgps" 
+              (input)="onRebriqueInput($event)" 
+              (keydown.enter)="onRebriqueEnter()" 
+              min="1"
+            />
+              </div>
+              <!-- Table to display NGP details -->
+              <table style="margin-top: 30px;">
+                <thead>
+                  <tr style="text-align: center;">
+                    <th style="position: relative; left: -140px;">NGP</th>
+                    <th style="position: relative; left: -42px;  white-space: nowrap; text-align: left;" >Montant NGP</th>
+                    <th >Pays d'origine</th>
+                    <th style="position: relative; left: 5px;">Unité</th>
+                    <th style="position: relative; left: 10px;">Quantité NGP </th>
+                    <th ></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let detailPDepot of depotDomiTitre.detailPDepotEntitys; let i = index" >
+                    <td>
+                       <!-- Bouton avec l'icône d'information -->
+                      <button type="button" class="info" (click)="afficherLibelle(detailPDepot.codeNgp)">
+                        <i class="fa-solid fa-info"></i>
+                      </button>
+                      <select class="input-group ngp-select wizard-required" id="ngp{{ i }}" name="codeNgp" [(ngModel)]="detailPDepot.codeNgp" data-placeholder="NGP">
+                        <option *ngFor="let codeNgp of allCodeNgpList" [value]="codeNgp">{{ codeNgp }}</option>
+                      </select>                      
+                      <div class="wizard-form-error"></div>
+                    </td>                    
+            
+                    <td>
+                      <input type="number" class="input-group MNTngp-select wizard-required" id="montantNGP{{ i }}" name="montantDvsNgp" [(ngModel)]="detailPDepot.montantDvsNgp" placeholder="Montant NGP">
+                      <div class="wizard-form-error"></div>
+                    </td>
+            
+                    <td>
+                      <select
+                        class="input-group codeP-select wizard-required"
+                        id="paysOrigine{{ i }}"
+                        name="codePaysOrigNgp"
+                        [(ngModel)]="detailPDepot.codePaysOrigNgp" data-placeholder="Pays d'origine"
+                      >
+                        <option *ngFor="let codePays of codePaysList" [value]="codePays.codePays">
+                          {{ codePays.codePays }}
+                        </option>
+                      </select>
+                      <div class="wizard-form-error"></div>
+                    </td>
+                    
+            
+                    <td>
+                      <select class="input-group unite-select wizard-required" id="unite{{ i }}" name="codeUnite" [(ngModel)]="detailPDepot.codeUnite" data-placeholder="Code Unité">
+                        <option *ngFor="let codeUnite of allCodeUniteList" [value]="codeUnite">{{ codeUnite }}</option>
+                      </select>
+                      <div class="wizard-form-error"></div>
+                    </td>
+            
+                    <td>
+                      <input type="number" class="input-group quantite-select wizard-required" id="quantite{{ i }}" name="qteNgp" [(ngModel)]="detailPDepot.qteNgp" data-placeholder="Quantité NGP">
+                      <div class="wizard-form-error"></div>
+                    </td>
+            
+                    <td>
+                      <button type="button"  (click)="removeDetailPDepotEntity(i)" class="bttn btn-danger btn-sm" style="margin-left:35px;">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            
+              <!-- Navigation buttons -->
+              <div class="form-group clearfix">
+                <button type="button" class="suivan" style="margin-top: 30px;" (click)="goToPreviousStep()">Précédent</button>
+                <button type="button" class="precident" style="margin-top: 30px;"  (click)="goToNextStep4()">Suivant</button>
+              </div>
+            </fieldset>
+            <fieldset class="wizard-fieldset" data-tab-content="Upload file" id="File">
+              <h5>Charger un fichier</h5>
+            
+              <!-- File upload field -->
+              <div class="form-group row">
+                <div class="form-label mr-2">
+                  <label for="fileUpload">Sélectionner un fichier :</label>
+                  <input type="file" id="fileUpload"  class="custom-file-input" (change)="onFileSelected($event)" multiple>
+                </div>
+            
+                <!-- Button to toggle file list -->
+                <div class="col-md-4 text-right custom-container">
+                  <button type="button" class="bttn btn-link file-list-toggle" (click)="toggleFileList()">
+                    Voir Fichiers ajoutés
+                  </button>
+                </div>
+              </div>
+            
+              <!-- File list modal -->
+              <div *ngIf="isFileListVisible" class="file-modal">
+                <div class="file-modal-content">
+                  <div class="file-modal-header">
+                    <h3>Fichiers ajoutés</h3>
+                    <button type="button" class="close-btn" (click)="toggleFileList()">&times;</button>
+                  </div>
+            
+                  <div class="file-modal-body">
+                    <table class="styled-table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Nom du fichier</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let fileName of selectedFileNames; let i = index">
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ fileName }}</td>
+                          <td>
+                            <!-- Open file button -->
+                            <button type="button" class="bttn btn-warning btn-sm" (click)="openFile(selectedFiles[i])" style="margin-right: 10px;">
+                              <i class="bi bi-eye"></i>
+                            </button>
+            
+                            <!-- Remove file button -->
+                            <button type="button" class="bttn btn-danger btn-sm" (click)="removeFile(fileName)">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            
+              <!-- Navigation buttons -->
+              <div class="form-group clearfix">
+                <button type="button" class="suivan" (click)="goToPreviousStep()">Précédent</button>
+                <button type="button" class="precident" (click)="goToNextStep()">Suivant</button>
+              </div>
+            </fieldset>
+            
+
+            <fieldset class="wizard-fieldset" data-tab-content="Vérification">
+              <h5>Vérification</h5>
+              <br>
+          
+              <div class="section">
+                  <!-- Données Demande -->
+                  <div class="section-header">
+                    <h5>Données Demande </h5>
+                 
+                    <span class="search" style="cursor: pointer; position: relative; left: 80px; top:-7px " (click)="openDetailsModal()">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="M660-160h40v-160h-40v160Zm20-200q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6ZM200-800v640-640 200-200Zm80 400h147q11-23 25.5-43t32.5-37H280v80Zm0 160h123q-3-20-3-40t3-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v92q-19-6-39-9t-41-3v-40H480v-200H200v640h227q11 23 25.5 43T485-80H200Zm480-400q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480Z"/>
+                      </svg>
+                    </span>
+
+                      <a class="search" href="javascript:void(0)" (click)="showFirstFieldset()" style="text-decoration: none; color: inherit;position: relative; top:-7px">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/></svg>
+                      </a>
+                  </div>
+                  
+                  <div *ngIf="isDetailsModalOpen" class="modal-overlay">
+                    <div class="modal-content">
+                      <span class="close-btn" (click)="closeDetailsModal()">&times;</span>
+                      <h2>Détails du dépôt</h2>
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td class="label">Nature de la demande :</td>
+                            <td class="value">{{ depotDomiTitre.natureDemande || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Code du titre :</td>
+                            <td class="value">{{ depotDomiTitre.codeTitre || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Code Agence :</td>
+                            <td class="value">
+                              {{ depotDomiTitre.codeAgence ? depotDomiTitre.codeAgence + ' - ' + (depotDomiTitre.codeagencelibele  || 'Non spécifié') : 'Non spécifié' }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label">RNE :</td>
+                            <td class="value">{{ depotDomiTitre.noPieceClient || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Nom et Prénom :</td>
+                            <td class="value">{{ nomPrenom || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Compte RIB :</td>
+                            <td class="value">{{ depotDomiTitre.numCompte || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Totalement exportatrice :</td>
+                            <td class="value">{{ depotDomiTitre.regimeSecteurActivite || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Activité principale/secondaire :</td>
+                            <td class="value">{{ depotDomiTitre.activitePrincipaleSecondaire || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr *ngIf="depotDomiTitre.activitePrincipaleSecondaire === ActivitePrincipaleSecondaire.PRINCIPALE">
+                            <td class="label">Activité principale :</td>
+                            <td class="value">{{ depotDomiTitre.codeSecteurActivite || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr *ngIf="depotDomiTitre.activitePrincipaleSecondaire === ActivitePrincipaleSecondaire.SECONDAIRE">
+                            <td class="label">Activité secondaire :</td>
+                            <td class="value">{{ depotDomiTitre.codeSecteurActiviteSec || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Date Domiciliation :</td>
+                            <td class="value">{{ currentDate | date: 'dd/MM/yyyy' }}</td>
+                          </tr>                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+              </div>
+          
+              <div class="section">
+                  <!-- Données Facture -->
+                  <div class="section-header">
+                    <h5>Données Facture </h5>
+                 
+                    <span class="search" style="cursor: pointer; position: relative; left: 88px; top:-7px " (click)="openFactureModal()">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="M660-160h40v-160h-40v160Zm20-200q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6ZM200-800v640-640 200-200Zm80 400h147q11-23 25.5-43t32.5-37H280v80Zm0 160h123q-3-20-3-40t3-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v92q-19-6-39-9t-41-3v-40H480v-200H200v640h227q11 23 25.5 43T485-80H200Zm480-400q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480Z"/>
+                      </svg>
+                    </span>
+
+                      <a class="search" href="javascript:void(0)" (click)="showSecondFieldset()" style="text-decoration: none; color: inherit;position: relative; top:-7px">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/></svg>
+                      </a>
+                  </div>
+                  <div *ngIf="isFactureModalOpen" class="modal-overlay">
+                    <div class="modal-content mt-8">
+                      <span class="close-btn" (click)="closeFactureModal()">&times;</span>
+                      <h2>Détails Facture</h2>
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td class="label">Numéro Contrat Commerciale :</td>
+                            <td class="value">{{ depotDomiTitre.numContratCom || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Date Contrat Commerciale:</td>
+                            <td class="value">{{ depotDomiTitre.dateContratCom ? (depotDomiTitre.dateContratCom | date: 'dd/MM/yyyy') : 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Nombre de colis :</td>
+                            <td class="value">{{ depotDomiTitre.nbrColis || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Devise :</td>
+                            <td class="value">{{ depotDomiTitre.libDevise || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Mode de livraison :</td>
+                            <td class="value">{{ depotDomiTitre.codeModLivLabel || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Acompte/Avance :</td>
+                            <td class="value">
+                              {{ depotDomiTitre.acompte ? depotDomiTitre.acompte + '%' : 'Non spécifié' }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label">Montant PTFN (DVS) :</td>
+                            <td class="value">{{ depotDomiTitre.mntDvsPtfnFact || 'Non spécifié' }}</td>
+                          </tr>
+                      
+                          <tr>
+                            <td class="label">Montant FOB (DVS) :</td>
+                            <td class="value">{{ depotDomiTitre.mntDvsFobFact || 'Non spécifié' }}</td>
+                          </tr>
+                         
+                          <tr>
+                            <td class="label">Nom fournisseur :</td>
+                            <td class="value">{{ depotDomiTitre.nomFournisseur || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Adresse fournisseur :</td>
+                            <td class="value">{{ depotDomiTitre.adrFournisseur || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Pays d'origine :</td>
+                              <td class="value">{{ depotDomiTitre.libPaysOrig || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Pays d'achat :</td>
+                            <td class="value">{{ depotDomiTitre.libPaysAch || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Pays de provenance :</td>
+                            <td class="value">{{ depotDomiTitre.libPaysProv || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Pays de destination :</td>
+                            <td class="value">{{ depotDomiTitre.libPaysDestDef || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Mode de règlement :</td>
+                            <td class="value">{{ depotDomiTitre.libModReg || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Délai de règlement :</td>
+                            <td class="value">{{ depotDomiTitre.libDelReg || 'Non spécifié' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="label">Régime statistique :</td>
+                            <td class="value">{{ depotDomiTitre.libRegimeStat || 'Non spécifié' }}</td>
+                          </tr>
+                        </tbody>                     
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              
+              <!-- Accord BCT/Assurance -->
+              <div class="section">
+                  <div class="section-header">
+                    <h5>Accord BCT/Assurance </h5>
+                    <span class="search" style="cursor: pointer; position: relative; left:70px; top:-7px " (click)="openBCTModal()">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="M660-160h40v-160h-40v160Zm20-200q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6ZM200-800v640-640 200-200Zm80 400h147q11-23 25.5-43t32.5-37H280v80Zm0 160h123q-3-20-3-40t3-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v92q-19-6-39-9t-41-3v-40H480v-200H200v640h227q11 23 25.5 43T485-80H200Zm480-400q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480Z"/>
+                      </svg>
+                    </span>
+
+                      <a class="search" href="javascript:void(0)" (click)="showThirdFieldset()" style="text-decoration: none; color: inherit;position: relative; top:-7px">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/></svg>
+                      </a>
+                  </div>
+                  <div *ngIf="isBCTModalOpen" class="modal-overlay">
+                    <div class="modal-content">
+                      <span class="close-btn" (click)="closeBCTModal()">&times;</span>
+                      <h2>Détails Accord BCT/Assurance</h2>
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr><td><strong>Type d'accord BCT :</strong></td><td>{{ depotDomiTitre.typeAccordBct || 'Non spécifié' }}</td></tr>
+                          <tr><td><strong>Numéro d'accord BCT :</strong> </td><td>{{ depotDomiTitre.numAccordBct || 'Non spécifié' }}</td></tr>
+                          <tr><td><strong>Date d'accord BCT :</strong> </td> <td>{{ depotDomiTitre.dateAccordBct ? (depotDomiTitre.dateAccordBct | date: 'dd/MM/yyyy') : 'Non spécifié' }}</td></tr>
+                          <tr><td><strong>Numéro d'assurance :</strong> </td><td>{{ depotDomiTitre.numAssurance || 'Non spécifié' }}</td></tr>
+                          <tr><td><strong>Date Assurance :</strong> </td> <td>{{ depotDomiTitre.dateAssurance ? (depotDomiTitre.dateAssurance | date: 'dd/MM/yyyy') : 'Non spécifié' }}</td></tr>
+                          <tr><td><strong>Numéro d'assurance :</strong> </td><td>{{ depotDomiTitre.numAssurance || 'Non spécifié' }}</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- NGP Data -->
+<div class="section">
+  <div class="section-header">
+    <h5>Données NGP</h5>
+    <span class="search" style="cursor: pointer; position: relative; left:97px; top:-7px" (click)="openNGPModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+        <path d="M660-160h40v-160h-40v160Zm20-200q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6ZM200-800v640-640 200-200Zm80 400h147q11-23 25.5-43t32.5-37H280v80Zm0 160h123q-3-20-3-40t3-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v92q-19-6-39-9t-41-3v-40H480v-200H200v640h227q11 23 25.5 43T485-80H200Zm480-400q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480Z" />
+      </svg>
+    </span>
+    <a class="search" href="javascript:void(0)" (click)="showFourthFieldset()" style="text-decoration: none; color: inherit; position: relative; top:-7px">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+        <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z" />
+      </svg>
+    </a>
+  </div>
+
+  <div *ngIf="isNGPModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeNGPModal()">&times;</span>
+      <h2>Détails NGP</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>NGP</th>
+            <th>Montant NGP</th>
+            <th>Pays d'origine</th>
+            <th>Unité</th>
+            <th>Quantité NGP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detailPDepot of depotDomiTitre.detailPDepotEntitys; let i = index">
+            <td>{{ detailPDepot.codeNgp || 'Non spécifié' }}</td>
+            <td>{{ detailPDepot.montantDvsNgp || 'Non spécifié' }}</td>
+            <td>{{ detailPDepot.codePaysOrigNgp || 'Non spécifié' }}</td>
+            <td>{{ detailPDepot.codeUnite || 'Non spécifié' }}</td>
+            <td>{{ detailPDepot.qteNgp || 'Non spécifié' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+        
+            <!-- FICHIER Data -->
+<div class="section">
+  <div class="section-header">
+    <h5>Données FICHIER</h5>
+    <span class="search" style="cursor: pointer; position: relative; left:88px; top:-7px" (click)="openFileModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+        <path d="M660-160h40v-160h-40v160Zm20-200q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6ZM200-800v640-640 200-200Zm80 400h147q11-23 25.5-43t32.5-37H280v80Zm0 160h123q-3-20-3-40t3-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v92q-19-6-39-9t-41-3v-40H480v-200H200v640h227q11 23 25.5 43T485-80H200Zm480-400q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480Z" />
+      </svg>
+    </span>
+    <a class="search" href="javascript:void(0)" (click)="showFifthFieldset()" style="text-decoration: none; color: inherit; position: relative; top:-7px">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+        <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z" />
+      </svg>
+    </a>
+  </div>
+
+  <div *ngIf="isFileModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeFileModal()">&times;</span>
+      <h2>Détails Fichier</h2>
+      <ng-container *ngIf="selectedFileNames.length > 0; else noFiles">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom du fichier</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fileName of selectedFileNames; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ fileName }}</td>
+              <td>
+                <button type="button" class="bttn btn-warning btn-sm" (click)="openFile(selectedFiles[i])" style="margin-right: 10px;">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-template #noFiles>
+        <p>Aucun fichier ajouté.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+            <!-- Boutons de navigation -->
+            <div class="form-group clearfix">
+              <button type="button" class="suivan" style="margin-top: 30px;" (click)="goToPreviousStep()">Précédent</button>
+              <button type="button" class="precident" style="margin-top: 30px;" (click)="createDepotDomiciliationTitre()">Soumettre</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</body>
+</html>

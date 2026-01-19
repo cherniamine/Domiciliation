@@ -1,0 +1,538 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #f4f6f9;
+  padding: 20px;
+}
+
+/* Container */
+.accord-bct-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(250, 232, 232);
+  
+}
+
+/* Heading */
+.accord-bct-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+  display: flex; /* Arrange label and input horizontally */
+  align-items: center; /* Vertically center-align the label and input */
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  width: 30%; /* Adjust label width to align properly */
+  text-align: right; /* Align label text to the right */
+  margin-right: 10px; /* Add spacing between label and input field */
+}
+
+
+/* Inputs and Select */
+.form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Custom file input styling */
+.custom-file-input {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 2px solid #2e4e70;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  width: 100%; /* Make it responsive */
+}
+
+.custom-file-input:hover {
+  border-color: #2e4e70; /* Darker blue on hover */
+  background-color: #e9ecef; /* Light gray background on hover */
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+.custom-file-input:focus {
+  border-color: #2e4e70; /* Blue border when focused */
+  background-color: #e9ecef; /* Light gray background */
+  outline: none;
+}
+
+/* For hiding the default file input button in some browsers */
+.custom-file-input::-webkit-file-upload-button {
+  display: none;
+}
+
+/* Optional: Custom label before file selection */
+.custom-file-input::before {
+  content: '📎';
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+/* Styling for the label */
+label {
+  font-weight: 500;
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+
+/* Button */
+
+.btn {
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #2980b9;
+  margin-top: 20px; 
+}
+
+.btn-primary:hover {
+  background-color: #3498db;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Textarea */
+.form-control-textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff; /* Change to white for textarea */
+  height: 150px;
+  transition: border-color 0.3s ease;
+}
+.form-control-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .accord-bct-container {
+    padding: 15px;
+  }
+
+  .form-group {
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .form-control {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
+/* Custom Section */
+.custom {
+  background-color: #ffffff;
+  height: 160%;
+}
+
+.logo {
+  position: relative;
+  top: 5px;
+  left: 5px;
+  width: 150px; /* Adjust the width as needed */
+}
+
+.nom-prenom-container {
+  margin-top: -20px; /* Adds spacing under the container */
+  margin-left: 300px;
+  margin-bottom: 20px;
+}
+
+.nom-prenom {
+  color: #0066CC;
+  font-weight: bold;
+}
+/* Gérer les erreurs de validation avec un fond rouge ou une bordure si nécessaire */
+.wizard-form-error {
+  color: rgb(207, 3, 3);
+  font-size: 12px;
+  text-align: left;
+  display: block; /* Display error message below the input */
+  margin-left: 300px;
+}
+
+/* Add underline styling to input fields with errors */
+input.error,
+select.error,
+textarea.error {
+  border: none;
+  border-bottom: 2px solid red; /* Red underline for error fields */
+  outline: none; /* Remove default focus outline */
+}
+
+input.error:focus,
+select.error:focus,
+textarea.error:focus {
+  border-bottom: 2px solid #b71c1c; /* Darker red on focus */
+}
+
+
+.form-wizard .form-group {
+  position: relative;
+  margin: 25px 0;
+}
+
+
+
+/* Flexbox for row form groups */
+.form-group.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Adds gap between columns */
+}
+
+.form-group.row .form-control {
+  width: 48%; /* Adjusts width for multiple form controls in a row */
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333; /* Darker color for text */
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 10px;
+  border-bottom: 2px solid #2980b9; /* Green underline for a professional look */
+  font-family: 'Arial', sans-serif; /* Professional font */
+  letter-spacing: 1px; /* Slight spacing between letters for readability */
+} 
+
+.title:before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 2px;
+  background-color: #2980b9; /* Green color for accent */
+  margin: 0 auto 10px; /* Center and space it out from the text */
+  
+}
+
+.title:hover {
+  color: #2980b9; /* Change color on hover for an interactive feel */
+  cursor: pointer;
+}
+
+/* Custom file input appearance */
+.file-input::-webkit-file-upload-button {
+  background-color: #4CAF50; /* Green button background */
+  color: white;              /* White text */
+  padding: 10px 20px;        /* Button padding */
+  font-size: 14px;           /* Font size */
+  font-weight: 600;          /* Font weight */
+  border-radius: 5px;        /* Rounded corners */
+  cursor: pointer;          /* Pointer cursor on hover */
+  border: none;              /* No border */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition for smooth hover effect */
+}
+
+.file-input::-webkit-file-upload-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.05);     /* Slight scale effect on hover */
+}
+
+.file-input::-webkit-file-upload-button:active {
+  background-color: #388e3c; /* Even darker green when button is clicked */
+  transform: scale(1);       /* Reset scale on active state */
+}
+
+
+/* Classe générique pour les boutons personnalisés */
+.bttn {
+  font-family: 'Arial', sans-serif;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Bouton danger (rouge) */
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+
+  &:hover {
+    background-color: #c82333;
+  }
+
+  &:active {
+    background-color: #bd2130;
+  }
+}
+
+/* Bouton de petite taille */
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+}
+
+/* Bouton de type lien (Voir fichiers ajoutés) */
+.btn-link {
+  background: none;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0;
+
+}
+
+/* Spécifique au toggle de la liste */
+.file-list-toggle {
+  font-weight: normal; /* Annule la mise en gras */
+  text-transform: none; /* Texte sans majuscules */
+  color: #050505;
+}
+
+
+.custom-container {
+  margin-left: 450px;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  top: -50px; /* Distance depuis le haut */
+  left: 0; /* Point de départ sur l'axe X */
+  width: auto; /* Facultatif pour éviter les problèmes de largeur */
+}
+
+
+/* Modal principal */
+.file-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  max-width: 800px;
+  z-index: 1050;
+  animation: slideDown 0.3s ease;
+}
+
+/* Animation d'apparition */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Header du modal */
+.file-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f4f6f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.file-modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.file-modal-header .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.file-modal-header .close-btn:hover {
+  color: #dc3545;
+}
+
+/* Corps du modal */
+.file-modal-body {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Table stylée */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.styled-table thead th {
+  background-color: #f4f6f9;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #555;
+  padding: 10px 15px;
+  border-bottom: 2px solid #ddd;
+  text-align: left;
+}
+
+.styled-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.styled-table tbody td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.styled-table tbody td button {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+}
+
+/* Scroll pour les longues listes */
+.file-modal-body {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.file-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.file-modal-body::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.file-modal-body::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+.bttn.cancel::before {
+  font-family: fontAwesome;
+  content: "\f00d\00a0";
+}
+.bttn.edit::before {
+  font-family: fontAwesome;
+  content: "\f044\00a0";
+ 
+}
+
+/* Bouton "Précédent" (gris) */
+.suivan {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff; /* Texte blanc */
+  background-color: #6c757d; /* Gris */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.suivan:hover {
+  background-color: #5a6268; /* Gris foncé au survol */
+  transform: translateY(-2px); /* Légère élévation */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Ombre renforcée */
+}
+
+.suivan:active {
+  transform: translateY(1px); /* Effet d'enfoncement */
+}
+
+/* Bouton "Suivant" (bleu) */
+.precident {
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 1em;
+  background-color: #2980b9; /* Bleu */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.precident:hover {
+  background-color: #3498db; /* Bleu clair au survol */
+  transform: translateY(-2px); /* Légère élévation */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Ombre renforcée */
+}
+
+.precident:active {
+  transform: translateY(1px); /* Effet d'enfoncement */
+}
+
+/* Accessibilité (Focus) */
+.suivan:focus, .precident:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Effet lumineux au focus */
+}
+

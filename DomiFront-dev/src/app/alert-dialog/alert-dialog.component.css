@@ -1,0 +1,9 @@
+.custom-dialog-container {
+    background-color: #f9f9f9; /* Light background for the dialog */
+    border-radius: 8px;
+  }
+  
+  .custom-backdrop {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark backdrop */
+  }
+  

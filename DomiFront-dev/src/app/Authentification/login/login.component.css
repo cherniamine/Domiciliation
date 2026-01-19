@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fa;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.logo {
+  width: 200px; 
+  height: auto;
+  margin-bottom: 20px; 
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.title {
+  color: #2c3e50;
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.login-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #999;
+}
+
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #3498db, #2980b9);
+  color: white;
+  font-size: 16px;
+  font-weight: normal;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-button:hover {
+  background: linear-gradient(90deg, #2980b9, #3498db);
+  transform: translateY(-2px);
+}
+
+.login-button:active {
+  transform: translateY(1px);
+}
+
+.toast-notification {
+  background-color: #ff5722 !important; /* Ensure this background color is applied */
+  color: white !important; /* Force the text color to white */
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 20px; /* Optional: Increase padding for better appearance */
+}
+
+

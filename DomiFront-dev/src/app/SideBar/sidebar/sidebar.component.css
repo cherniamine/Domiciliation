@@ -1,0 +1,191 @@
+
+
+.logo {
+  margin-bottom:0%;
+    position: relative;
+    top: -10px;
+    right: -110px;
+    width: 120px; 
+  }
+  
+.dropdown-toggle { 
+  outline: 0; 
+}
+
+.btn-toggle {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: #343a40; /* Texte plus sombre pour une meilleure lisibilité */
+  background-color: transparent;
+}
+
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: #495057; /* Couleur d'accentuation plus douce */
+  background-color: #e9ecef; /* Couleur de fond plus subtile au survol */
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23403d41' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+[data-bs-theme="dark"] .btn-toggle::before {
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23f8f9fa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: #2980b9; /* Accentuation du texte au clic */
+}
+
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: #e2e6ea; /* Fond d'accentuation au survol */
+}
+
+.scrollarea {
+  overflow-y: auto;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.bd-mode-toggle {
+  z-index: 1500;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+  display: block !important;
+}
+
+ul li a {
+  color: #495057 !important; /* Texte sombre et professionnel */
+}
+
+/* votre-composant.component.css */
+.sidebar {
+  width: 260px;
+  background-color: #343a40; /* Fond de la barre latérale en gris foncé */
+  color: #f8f9fa; /* Texte clair pour une meilleure lisibilité */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: block; /* Assurez-vous que la barre latérale est affichée par défaut */
+  transition: all 0.3s ease; /* Animation pour le basculement */
+  overflow-x: hidden; /* Évite le défilement horizontal */
+  padding-top: 60px; /* Pour que le contenu ne soit pas caché derrière un éventuel header fixe */
+}
+
+.main-content {
+ /* Largeur de la barre latérale */
+  /*padding: 16px;*/
+  min-width: calc(100vw - 260px) !important;
+  margin-left: 0px !important;
+
+  overflow-y:auto ;
+  transition: margin-left 0.3s ease; /* Animation pour le basculement */
+ 
+}
+
+
+.toggle-sidebar-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000; /* S'assure que le bouton est au-dessus des autres éléments */
+  background-color: #2980b9; /* Bouton avec couleur professionnelle */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.toggle-sidebar-btn:hover {
+  background-color: #2980b9; /* Couleur plus foncée au survol */
+}
+
+/* Sidebar - when collapsed */
+#sidebar.collapsed {
+  transform: translateX(-260px);
+   /* Moves sidebar offscreen */
+}
+
+ 
+
+
+#sidebar:not(.collapsed) ~ #mainContent {
+/* Apply margin only when sidebar is expanded */
+  min-width: calc(100vw - 260px) !important;
+
+}
+#sidebar.collapsed{
+  display: none;
+}
+#sidebar.collapsed ~ #mainContent {
+   /* Reset margin when sidebar is collapsed */
+   min-width: calc(100vw) !important;
+}
+
