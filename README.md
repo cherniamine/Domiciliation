@@ -9,7 +9,7 @@
  
 > Refonte d'un système bancaire historique (**Oracle Forms**) en une architecture **microservices moderne** (Java Spring Boot + Angular), appliquée au module de **Domiciliation des Titres de Commerce Extérieur**.
  
-Projet réalisé dans le cadre d'un stage professionnel au sein de la société **SMI (Le Monde Informatique)**, éditeur de la solution bancaire IBANSYS.
+Projet réalisé dans le cadre d'un stage effectué chez **Info-Z, en sous-traitance pour la société SMI (Le Monde Informatique)**, éditeur de la solution bancaire IBANSYS."
  
 ---
  
