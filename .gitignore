@@ -1,0 +1,52 @@
+### === Java / Spring Boot (DomiAPP_Back-dev) === ###
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IDE ###
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+### Logs ###
+*.log
+
+### Environnement / Secrets ###
+.env
+application-local.yml
+application-local.properties
+*.p12
+*.jks
+*.pem
+
+### === Angular / Node (DomiFront-dev) === ###
+/DomiFront-dev/node_modules/
+/DomiFront-dev/dist/
+/DomiFront-dev/.angular/
+/DomiFront-dev/tmp/
+/DomiFront-dev/out-tsc/
+/DomiFront-dev/bazel-out/
+
+# Générique (au cas où d'autres dossiers Node existent)
+node_modules/
+dist/
+.angular/
+
+npm-debug.log
+yarn-error.log
+
+### === OS / Divers === ###
+.DS_Store
+Thumbs.db
+*.swp
+
+### === Docker === ###
+docker-compose.override.yml
