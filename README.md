@@ -61,7 +61,7 @@ Méthodologie de gestion de projet : **Scrum** (sprints courts, livraison itéra
 Architecture **microservices**, chaque service étant responsable d'un domaine métier précis et communiquant via des API REST, orchestré par une passerelle API sécurisée. Le frontend Angular consomme l'ensemble des services via une **API Gateway** unique, qui route les requêtes vers les serveurs métiers (Domi, Ref, Gen) et vers le serveur d'authentification, le tout isolé dans un réseau privé.
  
 <p align="center">
-  <img src="Docs/Architecture_microservice.png" alt="Architecture microservices" width="700"/>
+  <img src="Docs/Architecture microservice.png" alt="Architecture microservices" width="700"/>
 </p>
 **Rôle de chaque service :**
  
